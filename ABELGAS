@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
- int MAX_DIRECTORIES = 10;
+ const int MAX_DIRECTORIES = 10;
 
 std::vector<std::string> directories;
 std::string currentDirectory = "/";
