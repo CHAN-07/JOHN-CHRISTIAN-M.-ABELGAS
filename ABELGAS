@@ -30,7 +30,7 @@ void displayContents() {
         }
     }
     std::cout << "Press Enter to continue...\n";
-    std::cin.ignore().get();  // Wait for user input to proceed
+    std::cin.ignore().get(); 
 }
 
 void createDirectory() {
