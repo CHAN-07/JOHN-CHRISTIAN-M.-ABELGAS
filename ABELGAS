@@ -29,7 +29,7 @@ void displayContents() {
             std::cout << dir << "/\n";
         }
     }
-    std::cout << "Press Enter to continue...\n";
+    std::cout << "Press Enterto continue...\n";
     std::cin.ignore().get();
 
 void createDirectory() {
@@ -42,7 +42,7 @@ void createDirectory() {
     std::string dirname;
     std::cin >> dirname;
 
-    if (std::find(directories.begin(), directories.end(), dirname) == directories.end()) {
+    if (std::find(directories.begin(), directories.end(), dirname) != directories.end()) {
         std::cout << "Directory '" << dirname << "' already exists.\n";
         return;
     }
@@ -58,7 +58,7 @@ void changeDirectory() {
     std::string dirname;
     std::cin >> dirname;
 
-    if (std::find(directories.begin(), directories.end(), dirname) == directories.end()) {
+    if (std::find(directories.begin(), directories.end(), dirname) != directories.end()) {
         currentDirectory = dirname;
         std::cout << "Current Directory: " << currentDirectory << "\n";
     } else {
