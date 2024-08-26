@@ -1,1 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
+ int MAX_DIRECTORIES = 10;
+
+std::vector<std::string> directories;
+std::string currentDirectory = "/";
+
+const std::vector<std::string> files = {
+    "file1.txt",
+    "file2.cpp",
+    "report.doc",
+    "image.png"
+};
+
+void displayContents() {
+    std::cout << "List of Files and Directories in Current Directory (" << currentDirectory << "):\n";
+    
+    for (const auto& file : files) {
+        std::cout << file << "\n";
+    }
+    
+    if (directories.empty()) {
+        std::cout << "No directories available.\n";
+    } else {
+        for (const auto& dir : directories) {
+            std::cout << dir << "/\n";
+        }
+    }
+    std::cout << "Press Enter to continue...\n";
+    std::cin.ignore().get();
+
+void createDirectory() {
+    if (directories.size() >= MAX_DIRECTORIES) {
+        std::cout << "Cannot create more directories. Limit reached.\n";
+        return;
+    }
+    
+    std::cout << "Enter the Directory name: ";
+    std::string dirname;
+    std::cin >> dirname;
+
+    if (std::find(directories.begin(), directories.end(), dirname) == directories.end()) {
+        std::cout << "Directory '" << dirname << "' already exists.\n";
+        return;
+    }
+
+    directories.push_back(dirname);
+    std::cout << "Directory '" << dirname << "' created successfully!\n";
+    std::cout << "Press Enter to continue...\n";
+    std::cin.ignore().get();  
+}
+
+void changeDirectory() {
+    std::cout << "Enter the Directory name to move into: ";
+    std::string dirname;
+    std::cin >> dirname;
+
+    if (std::find(directories.begin(), directories.end(), dirname) == directories.end()) {
+        currentDirectory = dirname;
+        std::cout << "Current Directory: " << currentDirectory << "\n";
+    } else {
+        std::cout << "Directory '" << dirname << "' does not exist.\n";
+    }
+
+    std::cout << "Press Enter to continue...\n";
+    std::cin.ignore().get();  
+}
+
+int main() {
+    while (true) {
+        std::cout << "MAIN MENU\n";
+        std::cout << "1. Display List of Files and Directories\n";
+        std::cout << "2. Create New Directory\n";
+        std::cout << "3. Change the Working Directory\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter the number: ";
+        int choice;
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                displayContents();
+                break;
+            case 2:
+                createDirectory();
+                break;
+            case 3:
+                changeDirectory();
+                break;
+            case 4:
+                return 0;  
+            default:
+                std::cout << "Invalid option! Please try again.\n";
+        }
+    }
+}
