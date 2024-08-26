@@ -1,9 +1,9 @@
 #include <iostream>
-#include <vector> 
+#include <vector>
 #include <string>
 #include <algorithm>
 
- const int MAX_DIRECTORIES = 10;
+const int MAX_DIRECTORIES = 100;
 
 std::vector<std::string> directories;
 std::string currentDirectory = "/";
@@ -29,8 +29,9 @@ void displayContents() {
             std::cout << dir << "/\n";
         }
     }
-    std::cout << "Press Enterto continue...\n";
-    std::cin.ignore().get();
+    std::cout << "Press Enter to continue...\n";
+    std::cin.ignore().get();  // Wait for user input to proceed
+}
 
 void createDirectory() {
     if (directories.size() >= MAX_DIRECTORIES) {
