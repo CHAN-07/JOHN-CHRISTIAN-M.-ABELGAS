@@ -1,14 +1,15 @@
 #include <iostream>
-#include <vector>
 #include <string>
-#include <algorithm>
 
 const int MAX_DIRECTORIES = 100;
+const int NUM_FILES = 4;
 
-std::vector<std::string> directories;
+std::string directories[MAX_DIRECTORIES];
+int numDirectories = 0;
+
 std::string currentDirectory = "/";
 
-const std::vector<std::string> files = {
+const std::string files[NUM_FILES] = {
     "file1.txt",
     "file2.cpp",
     "report.doc",
@@ -18,15 +19,15 @@ const std::vector<std::string> files = {
 void displayContents() {
     std::cout << "List of Files and Directories in Current Directory (" << currentDirectory << "):\n";
     
-    for (const auto& file : files) {
-        std::cout << file << "\n";
+    for (int i = 0; i < NUM_FILES; ++i) {
+        std::cout << files[i] << "\n";
     }
     
-    if (directories.empty()) {
+    if (numDirectories == 0) {
         std::cout << "No directories available.\n";
     } else {
-        for (const auto& dir : directories) {
-            std::cout << dir << "/\n";
+        for (int i = 0; i < numDirectories; ++i) {
+            std::cout << directories[i] << "/\n";
         }
     }
     std::cout << "Press Enter to continue...\n";
@@ -34,7 +35,7 @@ void displayContents() {
 }
 
 void createDirectory() {
-    if (directories.size() >= MAX_DIRECTORIES) {
+    if (numDirectories >= MAX_DIRECTORIES) {
         std::cout << "Cannot create more directories. Limit reached.\n";
         return;
     }
@@ -43,12 +44,15 @@ void createDirectory() {
     std::string dirname;
     std::cin >> dirname;
 
-    if (std::find(directories.begin(), directories.end(), dirname) != directories.end()) {
-        std::cout << "Directory '" << dirname << "' already exists.\n";
-        return;
+   
+    for (int i = 0; i < numDirectories; ++i) {
+        if (directories[i] == dirname) {
+            std::cout << "Directory '" << dirname << "' already exists.\n";
+            return;
+        }
     }
 
-    directories.push_back(dirname);
+    directories[numDirectories++] = dirname;
     std::cout << "Directory '" << dirname << "' created successfully!\n";
     std::cout << "Press Enter to continue...\n";
     std::cin.ignore().get();  
@@ -59,8 +63,17 @@ void changeDirectory() {
     std::string dirname;
     std::cin >> dirname;
 
-    if (std::find(directories.begin(), directories.end(), dirname) != directories.end()) {
-        currentDirectory = dirname;
+   
+    bool found = false;
+    for (int i = 0; i < numDirectories; ++i) {
+        if (directories[i] == dirname) {
+            currentDirectory = dirname;
+            found = true;
+            break;
+        }
+    }
+
+    if (found) {
         std::cout << "Current Directory: " << currentDirectory << "\n";
     } else {
         std::cout << "Directory '" << dirname << "' does not exist.\n";
@@ -98,3 +111,4 @@ int main() {
         }
     }
 }
+
